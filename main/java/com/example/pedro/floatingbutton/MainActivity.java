@@ -1,5 +1,6 @@
 package com.example.pedro.floatingbutton;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -112,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "Deveria aparecer uma lista aqui \uD83E\uDD14", Toast.LENGTH_SHORT).show();
             return true;
         } else if (itemSelecionado == R.id.item_menu_drawer_produto) {
-            Toast.makeText(this, "Você já ta aqui monamour! ¬¬", Toast.LENGTH_SHORT).show();
+            Intent it = new Intent(this,ProdutosMainContent.class);
+            startActivity(it);
             return true;
         }
         return false;
