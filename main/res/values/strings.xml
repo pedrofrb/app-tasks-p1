@@ -12,4 +12,7 @@
     <string name="dao_produto_atualizar_erro">Erro na inserção do Produto</string>
     <string name="dao_produto_excluir">Produto excluído!</string>
     <string name="dao_produto_excluir_erro">Erro na inserção do Produto</string>
+    <string name="produto_cadastro_nome">Cadastro de Produto</string>
+    <string name="produto_cadastro_adicionar">Adicionar</string>
+    <string name="produto_cadastro_hint">Digite o nome do produto</string>
 </resources>

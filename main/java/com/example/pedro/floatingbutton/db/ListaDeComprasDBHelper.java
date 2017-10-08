@@ -21,8 +21,8 @@ public class ListaDeComprasDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_TABLE_PRODUTO = "CREATE TABLE " + TabelaProduto.NOME_TABELA + "("
-                + TabelaProduto._ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + TabelaProduto.COLUNA_NOME_PRODUTO + "TEXT NOT NULL"
+                + TabelaProduto._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + TabelaProduto.COLUNA_NOME_PRODUTO + " TEXT NOT NULL"
                 + ");";
 
         db.execSQL(SQL_CREATE_TABLE_PRODUTO);
@@ -30,7 +30,7 @@ public class ListaDeComprasDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS"+TabelaProduto.NOME_TABELA);
+        db.execSQL("DROP TABLE IF EXISTS "+TabelaProduto.NOME_TABELA);
         onCreate(db);
     }
 }

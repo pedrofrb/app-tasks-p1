@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.pedro.floatingbutton.R;
 import com.example.pedro.floatingbutton.db.model.Produto;
@@ -15,18 +16,21 @@ import java.util.List;
  * Created by pedro on 08/10/17.
  */
 
-public class ListaProdutosAdapter extends RecyclerView.Adapter<ItemProdutoViewHolder> {
+public class ListaProdutosAdapter extends RecyclerView.Adapter<ListaProdutosAdapter.ItemProdutoViewHolder> {
 
     private List<Produto> produtos;
+    private Context mContext;
 
-    public ListaProdutosAdapter(List<Produto> produtos) {
+
+    public ListaProdutosAdapter(Context context,List<Produto> produtos) {
         this.produtos = produtos;
+        this.mContext = context;
     }
 
     @Override
     public ItemProdutoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.cardview_produto,parent,false);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View view = inflater.inflate(R.layout.cardview_produto,parent,false);
         ItemProdutoViewHolder viewHolder = new ItemProdutoViewHolder(view);
         return viewHolder;
 
@@ -34,8 +38,13 @@ public class ListaProdutosAdapter extends RecyclerView.Adapter<ItemProdutoViewHo
 
     @Override
     public void onBindViewHolder(ItemProdutoViewHolder holder, int position) {
+        if(produtos.isEmpty()){
+            return;
+        }
+
         Produto p = produtos.get(position);
         holder.nome.setText(p.getNomeProduto());
+        holder.itemView.setTag(p.getId());
     }
 
 
@@ -43,4 +52,20 @@ public class ListaProdutosAdapter extends RecyclerView.Adapter<ItemProdutoViewHo
     public int getItemCount() {
         return produtos.size();
     }
+
+    public void atualizaAdapter(List<Produto> novaLista){
+        produtos = novaLista;
+        this.notifyDataSetChanged();
+    }
+
+    public class ItemProdutoViewHolder extends RecyclerView.ViewHolder {
+
+        final TextView nome;
+
+        public ItemProdutoViewHolder(View itemView) {
+            super(itemView);
+            nome = (TextView) itemView.findViewById(R.id.nome_produto_textview);
+        }
+    }
+
 }
