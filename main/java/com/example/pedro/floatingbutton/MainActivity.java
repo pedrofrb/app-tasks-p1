@@ -113,9 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "Deveria aparecer uma lista aqui \uD83E\uDD14", Toast.LENGTH_SHORT).show();
             return true;
         } else if (itemSelecionado == R.id.item_menu_drawer_produto) {
-            Intent it = new Intent(this,ProdutosMainContent.class);
-            startActivity(it);
-            return true;
+            Toast.makeText(this, "Preciso implementar isso !!11!!", Toast.LENGTH_SHORT).show();
         }
         return false;
     }
