@@ -8,7 +8,10 @@
     tools:context="com.example.pedro.floatingbutton.MainActivity">
 
 
-    <include layout="@layout/main_content_produtos"/>
+    <FrameLayout
+        android:id="@+id/frame_activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/gaveta"

@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,8 +29,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        ProdutosMainContent produtosMainContent = new ProdutosMainContent();
+
+        fragmentTransaction.replace(R.id.frame_activity_main,produtosMainContent);
+
+        fragmentTransaction.commit();
+
+
+
+
         //Atributos
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+
 
 
         /*
@@ -49,14 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "\uD83D\uDE2C", Toast.LENGTH_SHORT).show();
-                // TODO: 07/10/17 Ação do Click do Floating Button
 
-            }
-        });
 
     }
 
