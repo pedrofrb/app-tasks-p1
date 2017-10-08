@@ -17,6 +17,10 @@ public class Produto {
         this.nomeProduto=cursor.getString(cursor.getColumnIndex(TabelaProduto.COLUNA_NOME_PRODUTO));
     }
 
+    public Produto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+
     public long getId() {
         return id;
     }
