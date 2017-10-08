@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Floating Button</string>
+    <string name="main_text">It\'s working!!</string>
+    <string name="item_menu_drawer_lista">Minhas Listas</string>
+    <string name="item_menu_drawer_produto">Meus Produtos</string>
+    <string name="description_open_drawer">Opening drawer...</string>
+    <string name="description_close_drawer">Closing drawer</string>
+    <string name="menu_main_activity_config">Configurações</string>
+    <string name="dao_produto_inserir">Produto inserido!</string>
+    <string name="dao_produto_inserir_erro">Erro ao inserir produto</string>
+    <string name="dao_produto_atualizar">Produto atualizado!</string>
+    <string name="dao_produto_atualizar_erro">Erro na inserção do Produto</string>
+    <string name="dao_produto_excluir">Produto excluído!</string>
+    <string name="dao_produto_excluir_erro">Erro na inserção do Produto</string>
+</resources>
