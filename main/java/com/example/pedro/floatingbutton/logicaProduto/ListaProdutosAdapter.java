@@ -1,12 +1,14 @@
 package com.example.pedro.floatingbutton.logicaProduto;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.pedro.floatingbutton.ProdutoAtualizar;
 import com.example.pedro.floatingbutton.R;
 import com.example.pedro.floatingbutton.db.model.Produto;
 
@@ -58,13 +60,23 @@ public class ListaProdutosAdapter extends RecyclerView.Adapter<ListaProdutosAdap
         this.notifyDataSetChanged();
     }
 
-    public class ItemProdutoViewHolder extends RecyclerView.ViewHolder {
+    public class ItemProdutoViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
 
         final TextView nome;
 
         public ItemProdutoViewHolder(View itemView) {
             super(itemView);
             nome = (TextView) itemView.findViewById(R.id.nome_produto_textview);
+            itemView.setOnLongClickListener(this);
+
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            Intent it = new Intent(mContext, ProdutoAtualizar.class);
+            it.putExtra("id_produto", itemView.getTag().toString());
+            mContext.startActivity(it);
+            return false;
         }
     }
 

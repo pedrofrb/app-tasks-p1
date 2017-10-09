@@ -15,4 +15,7 @@
     <string name="produto_cadastro_nome">Cadastro de Produto</string>
     <string name="produto_cadastro_adicionar">Adicionar</string>
     <string name="produto_cadastro_hint">Digite o nome do produto</string>
+    <string name="produto_adapter_conversao">Falha ao processar atualização do produto</string>
+    <string name="produto_atualizar_titulo">Atualizar Produto</string>
+    <string name="produto_atualizar_button">Atualizar</string>
 </resources>

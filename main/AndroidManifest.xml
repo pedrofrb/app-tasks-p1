@@ -16,7 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProdutoCadastro" android:theme="@style/Theme.MyDialog"></activity>
+        <activity
+            android:name=".ProdutoCadastro"
+            android:theme="@style/Theme.MyDialog" />
+
+        <activity
+            android:name=".ProdutoAtualizar"
+            android:theme="@style/Theme.MyDialog"/>
+
     </application>
 
 </manifest>
