@@ -5,37 +5,49 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:id="@+id/lista_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="8dp"
-        app:cardElevation="7dp">
+        android:elevation="0dp"
+        >
 
         <android.support.constraint.ConstraintLayout
-            android:backgroundTint="@color/colorPrimaryLight"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/colorPrimaryLight">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="#424242"
+                android:layout_marginRight="2dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="2dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="0dp" />
 
             <TextView
 
-                android:id="@+id/nome_lista_textview"
+                android:id="@+id/nome_produto_da_lista_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Pamonha"
-                android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="parent" />
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="1dp" />
 
         </android.support.constraint.ConstraintLayout>
 
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
 
 </FrameLayout>

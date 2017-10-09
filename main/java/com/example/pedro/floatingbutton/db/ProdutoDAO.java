@@ -61,6 +61,43 @@ public class ProdutoDAO {
         return lista;
     }
 
+
+    public String[] getTodosProdutosString() {
+
+        ArrayList<Produto> lista = new ArrayList<Produto>();
+
+        try {
+            Cursor cursor;
+
+            String[] campos = {TabelaProduto._ID, TabelaProduto.COLUNA_NOME_PRODUTO};
+
+            this.mdb = dbHelper.getReadableDatabase();
+
+            cursor = mdb.query(TabelaProduto.NOME_TABELA, campos, null, null, null, null, TabelaProduto.COLUNA_NOME_PRODUTO);
+
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+
+                while (!cursor.isLast()) {
+                    lista.add(new Produto(cursor));
+                    cursor.moveToNext();
+                }
+                lista.add(new Produto(cursor));
+            }
+            mdb.close();
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        }
+
+        String[] strings = new String[lista.size()];
+
+        for(int i=0;i<lista.size();i++){
+            strings[i]=lista.get(i).getNomeProduto();
+        }
+        return strings;
+
+    }
+
     public  Produto getTodosProdutos(long id) {
         Produto produto = null;
         try {

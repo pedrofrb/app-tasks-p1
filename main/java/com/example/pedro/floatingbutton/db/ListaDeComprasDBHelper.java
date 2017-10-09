@@ -43,7 +43,7 @@ public class ListaDeComprasDBHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_TABLE_LISTA_DE_COMPRAS_PRODUTO = "CREATE TABLE " + TabelaListaDeComprasProduto.NOME_TABELA + "("  //FOREIGN KEY(trackartist) REFERENCES artist(artistid
                 + TabelaListaDeComprasProduto._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + TabelaListaDeComprasProduto.COLUNA_ID_LISTA + " INTEGER NOT NULL,"
-                + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " INTEGER NOT NULL"
+                + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " INTEGER NOT NULL,"
                 +TabelaListaDeCompras.COLUNA_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
                 +"FOREIGN KEY("+TabelaListaDeComprasProduto.COLUNA_ID_LISTA+") REFERENCES "+TabelaListaDeCompras.NOME_TABELA+"("+TabelaListaDeCompras._ID+"),"
                 +"FOREIGN KEY("+TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO+") REFERENCES "+TabelaProduto.NOME_TABELA+"("+TabelaProduto._ID+")"

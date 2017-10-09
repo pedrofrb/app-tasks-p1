@@ -70,8 +70,8 @@ public class ListasMainContent extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO Criar logica de adicionar lista
-                //Intent it = new Intent(rootView.getContext(),ProdutoCadastro.class);
-                //startActivity(it);
+                Intent it = new Intent(rootView.getContext(),ListaModificacao.class);
+                startActivity(it);
 
 
 
