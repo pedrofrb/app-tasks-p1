@@ -19,9 +19,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener/*Interface para o controle dos menus da gaveta*/ {
 
-    //Faz parte da lógica do Drawer
-    ActionBarDrawerToggle toggle;
 
+    ActionBarDrawerToggle toggle;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,19 +29,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        ProdutosMainContent produtosMainContent = new ProdutosMainContent();
+        ListasMainContent listasMainContent = new ListasMainContent();
 
-        fragmentTransaction.replace(R.id.frame_activity_main,produtosMainContent);
+        fragmentTransaction.replace(R.id.frame_activity_main,listasMainContent);
 
         fragmentTransaction.commit();
 
 
 
 
-        //Atributos
+
 
 
 
@@ -85,8 +85,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int itemSelecionado = item.getItemId();
 
         if (itemSelecionado == R.id.opcao_config) {
-            Toast.makeText(this, "Deveria ter algo aqui \uD83E\uDD14", Toast.LENGTH_SHORT).show();
-            // TODO: 07/10/17 Botão da action bar para o SharedPreferences
+            Intent it = new Intent(this, SettingsActivity.class);
+            startActivity(it);
+            return true;
         }
 
 
@@ -114,13 +115,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Método para ações da navigation view do drawer
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        //Para poder fechar o drawer apos a seleção
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         int itemSelecionado = item.getItemId();
 
         if (itemSelecionado == R.id.item_menu_drawer_lista) {
-            Toast.makeText(this, "Deveria aparecer uma lista aqui \uD83E\uDD14", Toast.LENGTH_SHORT).show();
+
+            FragmentTransaction transaction= fragmentManager.beginTransaction();
+            ListasMainContent ltmc = new ListasMainContent();
+            transaction.replace(R.id.frame_activity_main,ltmc);
+            transaction.commit();
+            drawer.closeDrawer(GravityCompat.START);
+
             return true;
+
+
+
         } else if (itemSelecionado == R.id.item_menu_drawer_produto) {
-            Toast.makeText(this, "Preciso implementar isso !!11!!", Toast.LENGTH_SHORT).show();
+            FragmentTransaction transaction= fragmentManager.beginTransaction();
+            ProdutosMainContent pdmc = new ProdutosMainContent();
+            transaction.replace(R.id.frame_activity_main,pdmc);
+            transaction.commit();
+            drawer.closeDrawer(GravityCompat.START);
+
+            return true;
         }
         return false;
     }

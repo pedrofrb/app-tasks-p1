@@ -1,8 +1,9 @@
 package com.example.pedro.floatingbutton;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,30 +13,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.pedro.floatingbutton.db.ProdutoDAO;
-import com.example.pedro.floatingbutton.db.model.Produto;
+import com.example.pedro.floatingbutton.db.model.ListaDeCompras;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by pedro on 08/10/17.
- */
 
-public class ProdutosMainContent extends Fragment {
-    ListaProdutosAdapter mAdapter;
-    ProdutoDAO dao;
+public class ListasMainContent extends Fragment {
+    ListaDeComprasAdapter mAdapter;
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.fragment_listas_main_content,container,false);
 
-        final View rootView = inflater.inflate(R.layout.main_content_produtos,container,false);
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.floating_button_lista);
 
-        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.floatingActionButton);
-
-
-
-        final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycle_view_produtos);
+        final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycle_view_listas);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT){
 
@@ -47,34 +41,37 @@ public class ProdutosMainContent extends Fragment {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 long id =(long) viewHolder.itemView.getTag();
-                dao.excluirProduto(id);
-                mAdapter.atualizaAdapter(dao.getTodosProdutos());
+                // TODO Lógica de apagar Lista
+                //dao.excluirProduto(id);
+                //mAdapter.atualizaAdapter(dao.getTodosProdutos());
             }
         }).attachToRecyclerView(recyclerView);
 
+        //Será substituido pelo DAO
 
+        List<ListaDeCompras> listas = new ArrayList<ListaDeCompras>();
 
+        ListaDeCompras l = new ListaDeCompras();
 
-        dao = new ProdutoDAO(rootView.getContext());
+        l.setNome("Lista marota!");
+        l.setId(123);
+        listas.add(l);
 
-
-        List<Produto> produtos = dao.getTodosProdutos();
-
-        mAdapter = new ListaProdutosAdapter(rootView.getContext(),produtos);
+        mAdapter = new ListaDeComprasAdapter(rootView.getContext(),listas);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
 
         RecyclerView.LayoutManager layout = new LinearLayoutManager(rootView.getContext(),LinearLayoutManager.VERTICAL,false);
 
-
         recyclerView.setLayoutManager(layout);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(rootView.getContext(),ProdutoCadastro.class);
-                startActivity(it);
+                //TODO Criar logica de adicionar lista
+                //Intent it = new Intent(rootView.getContext(),ProdutoCadastro.class);
+                //startActivity(it);
 
 
 
@@ -82,11 +79,10 @@ public class ProdutosMainContent extends Fragment {
         });
 
         return rootView;
+
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mAdapter.atualizaAdapter(dao.getTodosProdutos());
-    }
+
+
+
 }

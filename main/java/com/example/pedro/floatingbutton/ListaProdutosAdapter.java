@@ -1,4 +1,4 @@
-package com.example.pedro.floatingbutton.logicaProduto;
+package com.example.pedro.floatingbutton;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.pedro.floatingbutton.ProdutoAtualizar;
-import com.example.pedro.floatingbutton.R;
 import com.example.pedro.floatingbutton.db.model.Produto;
 
 import java.util.List;

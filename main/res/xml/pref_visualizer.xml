@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:key="PREF_LIST"
+        android:title="Cor padrão das Listas"
+        android:summary="Define a cor "
+
+        android:entries="@array/opcoes_cor_entries"
+        android:entryValues="@array/opcoes_cor_values" />
+
+    <!--TODO Modificar comportamento do summary-->
+
+</PreferenceScreen>
