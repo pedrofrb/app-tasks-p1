@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Floating Button</string>
-    <string name="main_text">It\'s working!!</string>
+    <string name="app_name">Lista de Compras</string>
     <string name="item_menu_drawer_lista">Minhas Listas</string>
     <string name="item_menu_drawer_produto">Meus Produtos</string>
     <string name="description_open_drawer">Opening drawer...</string>
