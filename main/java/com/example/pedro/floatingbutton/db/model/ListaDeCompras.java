@@ -1,6 +1,12 @@
 package com.example.pedro.floatingbutton.db.model;
 
+import android.database.Cursor;
+import android.util.Log;
+
+import com.example.pedro.floatingbutton.db.ListaDeComprasContract.*;
+
 import java.sql.Timestamp;
+import java.util.IllegalFormatException;
 
 /**
  * Created by pedro on 08/10/17.
@@ -11,6 +17,15 @@ public class ListaDeCompras {
     private String nome;
     private String cor;
     private Timestamp timestamp;
+
+
+    public ListaDeCompras(Cursor cursor)throws IllegalArgumentException {
+        this.id=cursor.getLong(cursor.getColumnIndex(TabelaListaDeComprasProduto._ID));
+        this.nome=cursor.getString(cursor.getColumnIndex(TabelaListaDeCompras.COLUNA_NOME_LISTA));
+        this.cor=cursor.getString(cursor.getColumnIndex(TabelaListaDeCompras.COLUNA_COR_LISTA));
+        this.timestamp=Timestamp.valueOf(cursor.getString(cursor.getColumnIndex(TabelaListaDeCompras.COLUNA_TIMESTAMP)));
+    }
+
 
     public long getId() {
         return id;

@@ -2,17 +2,21 @@ package com.example.pedro.floatingbutton;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.pedro.floatingbutton.db.ListaDeComprasDAO;
 import com.example.pedro.floatingbutton.db.model.ListaDeCompras;
 
 import java.util.ArrayList;
@@ -21,7 +25,7 @@ import java.util.List;
 
 public class ListasMainContent extends Fragment {
     ListaDeComprasAdapter mAdapter;
-
+    ListaDeComprasDAO listaDeComprasDAO;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class ListasMainContent extends Fragment {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 long id =(long) viewHolder.itemView.getTag();
+                listaDeComprasDAO.excluirListaDeCompras(id);
+                mAdapter.atualizaAdapter(listaDeComprasDAO.getTodasListaDeCompras());
                 // TODO Lógica de apagar Lista
                 //dao.excluirProduto(id);
                 //mAdapter.atualizaAdapter(dao.getTodosProdutos());
@@ -49,13 +55,17 @@ public class ListasMainContent extends Fragment {
 
         //Será substituido pelo DAO
 
-        List<ListaDeCompras> listas = new ArrayList<ListaDeCompras>();
+        listaDeComprasDAO = new ListaDeComprasDAO(rootView.getContext());
+        listaDeComprasDAO.inserirListaDeCompras("Lista listosa","FFEB3B");
+        listaDeComprasDAO.inserirListaDeCompras("Lista listosa verde","C5E1A5");
 
-        ListaDeCompras l = new ListaDeCompras();
 
-        l.setNome("Lista marota!");
-        l.setId(123);
-        listas.add(l);
+
+        List<ListaDeCompras> listas = listaDeComprasDAO.getTodasListaDeCompras();
+
+
+
+
 
         mAdapter = new ListaDeComprasAdapter(rootView.getContext(),listas);
 
@@ -69,7 +79,7 @@ public class ListasMainContent extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Criar logica de adicionar lista
+
                 Intent it = new Intent(rootView.getContext(),ListaModificacao.class);
                 startActivity(it);
 

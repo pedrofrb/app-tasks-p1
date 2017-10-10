@@ -2,6 +2,8 @@ package com.example.pedro.floatingbutton;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +44,9 @@ public class ListaDeComprasAdapter extends RecyclerView.Adapter<ListaDeComprasAd
             return;
         }
 
+        CardView cd = (CardView)holder.itemView.findViewById(R.id.lista_cardview);
         ListaDeCompras l = listas.get(position);
+        cd.setBackgroundColor(Color.parseColor("#"+l.getCor()));
         holder.nome.setText(l.getNome());
         holder.itemView.setTag(l.getId());
     }

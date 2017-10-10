@@ -7,8 +7,18 @@
     </string-array>
 
     <string-array name="opcoes_cor_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+        <item>FFF59D</item>
+        <item>F8BBD0</item>
+        <item>C5E1A5</item>
+    </string-array>
+
+    <string-array name="opcoes_ordenacao_entries">
+        <item>Ordem Alfabética</item>
+        <item>Ordem de Criação</item>
+    </string-array>
+
+    <string-array name="opcoes_ordenacao_values">
+        <item>asc</item>
+        <item>date</item>
     </string-array>
 </resources>
