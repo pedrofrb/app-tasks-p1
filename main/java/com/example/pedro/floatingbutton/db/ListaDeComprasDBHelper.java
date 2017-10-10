@@ -14,7 +14,7 @@ import com.example.pedro.floatingbutton.db.ListaDeComprasContract.*;
 public class ListaDeComprasDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME="listaDecompras.db";
-    private static final int DATABASE_VERSION=6;
+    private static final int DATABASE_VERSION=7;
 
     public ListaDeComprasDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,7 +44,7 @@ public class ListaDeComprasDBHelper extends SQLiteOpenHelper {
                 + TabelaListaDeComprasProduto._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + TabelaListaDeComprasProduto.COLUNA_ID_LISTA + " INTEGER NOT NULL,"
                 + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " INTEGER NOT NULL,"
-                +TabelaListaDeComprasProduto.COLUNA_MARCADO + " INTEGER DEFAULT 1,"
+                +TabelaListaDeComprasProduto.COLUNA_MARCADO + " TEXT DEFAULT false,"
                 +"FOREIGN KEY("+TabelaListaDeComprasProduto.COLUNA_ID_LISTA+") REFERENCES "+TabelaListaDeCompras.NOME_TABELA+"("+TabelaListaDeCompras._ID+"),"
                 +"FOREIGN KEY("+TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO+") REFERENCES "+TabelaProduto.NOME_TABELA+"("+TabelaProduto._ID+")"
                 + ");";

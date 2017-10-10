@@ -16,6 +16,7 @@ import com.example.pedro.floatingbutton.db.model.ListaDeCompras;
 import com.example.pedro.floatingbutton.db.model.Produto;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Created by pedro on 09/10/17.
@@ -58,19 +59,20 @@ public class ListaDeComprasProdutoDAO {
             Cursor cursor = mdb.query(TabelaListaDeComprasProduto.NOME_TABELA, campos, selection, null, null, null, null);
 
 
-            int estaMarcado=0;
+            String estaMarcado=null;
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
 
-                estaMarcado = cursor.getInt(cursor.getColumnIndex(TabelaListaDeComprasProduto.COLUNA_MARCADO));
+                estaMarcado = cursor.getString(cursor.getColumnIndex(TabelaListaDeComprasProduto.COLUNA_MARCADO));
 
             }
             mdb.close();
-            if (estaMarcado == 1) {
+            Log.i("huehue",estaMarcado);
+            if (estaMarcado.equals("true")) {
 
-                return false;
-            } else if(estaMarcado==2){
                 return true;
+            } else if(estaMarcado.equals("false")){
+                return false;
             }
 
         }catch (SQLException|IllegalArgumentException e) {
@@ -95,7 +97,7 @@ public class ListaDeComprasProdutoDAO {
 
             ContentValues valores = new ContentValues();
 
-            valores.put(TabelaListaDeComprasProduto.COLUNA_MARCADO, 1);
+            valores.put(TabelaListaDeComprasProduto.COLUNA_MARCADO, "true");
 
             mdb = dbHelper.getWritableDatabase();
             alterado = mdb.update(TabelaListaDeComprasProduto.NOME_TABELA, valores, selection, null) > 0;
@@ -119,9 +121,13 @@ public class ListaDeComprasProdutoDAO {
                             + " AND " + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " = " + idProduto;
 
 
+            String[] campos = {ListaDeComprasContract.TabelaListaDeComprasProduto.COLUNA_MARCADO};
+
+
+
             ContentValues valores = new ContentValues();
 
-            valores.put(TabelaListaDeComprasProduto.COLUNA_MARCADO, 0);
+            valores.put(TabelaListaDeComprasProduto.COLUNA_MARCADO, "false");
 
             mdb = dbHelper.getWritableDatabase();
             alterado = mdb.update(TabelaListaDeComprasProduto.NOME_TABELA, valores, selection, null) > 0;

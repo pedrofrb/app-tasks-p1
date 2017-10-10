@@ -2,6 +2,7 @@ package com.example.pedro.floatingbutton;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,11 +84,13 @@ public class ItemProdutoCheckAdapter extends RecyclerView.Adapter<ItemProdutoChe
                 @Override
                 public void onClick(View v) {
                     long idDoProduto = 0;
+
                     try {
                         idDoProduto = Long.valueOf(itemView.getTag().toString());
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }
+                    Log.i("hue",String.valueOf(idDoProduto));
                     if (checkBoxProduto.isChecked()) {
 
                         dao.marcarProduto(idDoProduto, idLista);
