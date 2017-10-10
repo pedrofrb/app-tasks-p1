@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.pedro.floatingbutton.db.ListaDeComprasProdutoDAO;
 import com.example.pedro.floatingbutton.db.ProdutoDAO;
 import com.example.pedro.floatingbutton.db.model.Produto;
 
@@ -47,6 +48,8 @@ public class ProdutosMainContent extends Fragment {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 long id =(long) viewHolder.itemView.getTag();
+                ListaDeComprasProdutoDAO daoLista = new ListaDeComprasProdutoDAO(rootView.getContext());
+                daoLista.excluirProdutoDeTodasListasDeCompras(id);
                 dao.excluirProduto(id);
                 mAdapter.atualizaAdapter(dao.getTodosProdutos());
             }

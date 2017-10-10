@@ -72,7 +72,7 @@ public class ListaDeComprasAdapter extends RecyclerView.Adapter<ListaDeComprasAd
         this.notifyDataSetChanged();
     }
 
-    public class ItemListaViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
+    public class ItemListaViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener,View.OnClickListener{
 
         final TextView nome;
 
@@ -80,6 +80,7 @@ public class ListaDeComprasAdapter extends RecyclerView.Adapter<ListaDeComprasAd
             super(itemView);
             nome = (TextView) itemView.findViewById(R.id.nome_lista_textview);
             itemView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
 
         }
 
@@ -91,8 +92,11 @@ public class ListaDeComprasAdapter extends RecyclerView.Adapter<ListaDeComprasAd
             mContext.startActivity(it);
             return false;
         }
-        public void OnClick(View v){
-
+        @Override
+        public void onClick(View v) {
+            Intent it = new Intent(mContext, ListaCheck.class);
+            it.putExtra("id_lista", itemView.getTag().toString());
+            mContext.startActivity(it);
         }
     }
 

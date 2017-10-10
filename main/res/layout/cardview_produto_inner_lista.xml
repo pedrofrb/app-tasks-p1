@@ -19,16 +19,6 @@
             android:layout_height="match_parent"
             android:backgroundTint="@color/colorPrimaryLight">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="#424242"
-                android:layout_marginRight="2dp"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginLeft="2dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="0dp" />
 
             <TextView
 

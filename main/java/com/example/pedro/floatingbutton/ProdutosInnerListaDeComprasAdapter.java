@@ -57,24 +57,16 @@ public class ProdutosInnerListaDeComprasAdapter extends RecyclerView.Adapter<Pro
     }
 
 
-    public class ItemProdutoInnerListaViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
+    public class ItemProdutoInnerListaViewHolder extends RecyclerView.ViewHolder{
         //TODO Modificar ViewHolder para novo cardview
         final TextView nome;
 
         public ItemProdutoInnerListaViewHolder(View itemView) {
             super(itemView);
             nome = (TextView) itemView.findViewById(R.id.nome_produto_da_lista_textview);
-            itemView.setOnLongClickListener(this);
 
         }
 
-        @Override
-        public boolean onLongClick(View v) {
-            Intent it = new Intent(mContext, ProdutoAtualizar.class);
-            it.putExtra("id_lista", itemView.getTag().toString());
-            mContext.startActivity(it);
-            return false;
-        }
     }
 
 }

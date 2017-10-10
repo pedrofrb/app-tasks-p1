@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.pedro.floatingbutton.R;
@@ -35,47 +36,62 @@ public class ListaDeComprasProdutoDAO {
         produtoDao = new ProdutoDAO(context);
     }
 
-    public boolean isProdutoMarcado(Produto p, ListaDeCompras listaDeCompras) {
+    public boolean isProdutoMarcado(long idProduto, long idListaDeCompras) {
+
+        String selection = TabelaListaDeComprasProduto.COLUNA_ID_LISTA + "=" + idListaDeCompras
+                        + " AND " + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + "=" + idProduto;
 
         try {
-            String selection =
-                    TabelaListaDeComprasProduto.COLUNA_ID_LISTA + " = " + listaDeCompras.getId()
-                            + " AND " + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " = " + p.getId();
+
+
 
 
             String[] campos = {ListaDeComprasContract.TabelaListaDeComprasProduto.COLUNA_MARCADO};
+            this.mdb = dbHelper.getReadableDatabase();
 
-            Cursor cursor = mdb.query(ListaDeComprasContract.TabelaListaDeComprasProduto.NOME_TABELA, campos
-                    , selection, null, null, null, null);
+            //Cursor cursor = mdb.rawQuery("SELECT "+TabelaListaDeComprasProduto.COLUNA_MARCADO+" FROM "+TabelaListaDeComprasProduto.NOME_TABELA+
+                 //   " WHERE "+TabelaListaDeComprasProduto.COLUNA_ID_LISTA + " = ?"
+                 //   + " AND " + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " = ?",new String[]{String.valueOf(idProduto),String.valueOf(idProduto)});
+          // Cursor cursor = mdb.query(ListaDeComprasContract.TabelaListaDeComprasProduto.NOME_TABELA, campos
+            //        , selection, null, null, null, null);
 
-            int estaMarcado = cursor.getInt(cursor.getColumnIndex(TabelaListaDeComprasProduto.COLUNA_MARCADO));
+            Cursor cursor = mdb.query(TabelaListaDeComprasProduto.NOME_TABELA, campos, selection, null, null, null, null);
 
+
+            int estaMarcado=0;
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+
+                estaMarcado = cursor.getInt(cursor.getColumnIndex(TabelaListaDeComprasProduto.COLUNA_MARCADO));
+
+            }
+            mdb.close();
             if (estaMarcado == 1) {
-                return true;
-            } else return false;
 
-        }catch (SQLException e) {
+                return false;
+            } else if(estaMarcado==2){
+                return true;
+            }
+
+        }catch (SQLException|IllegalArgumentException e) {
             e.printStackTrace();
             Toast.makeText(context, R.string.lista_produto_is_marcado_error, Toast.LENGTH_SHORT).show();
         }
         return false;
     }
 
-    public boolean marcarProduto(Produto p, ListaDeCompras listaDeCompras){
+    public boolean marcarProduto(long idProduto, long idListaDeCompras){
         boolean alterado = false;
 
         try {
             String selection =
-                    TabelaListaDeComprasProduto.COLUNA_ID_LISTA + " = " + listaDeCompras.getId()
-                            + " AND " + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " = " + p.getId();
+                    TabelaListaDeComprasProduto.COLUNA_ID_LISTA + " = " + idListaDeCompras
+                            + " AND " + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " = " + idProduto;
 
 
             String[] campos = {ListaDeComprasContract.TabelaListaDeComprasProduto.COLUNA_MARCADO};
 
-            Cursor cursor = mdb.query(ListaDeComprasContract.TabelaListaDeComprasProduto.NOME_TABELA, campos
-                    , selection, null, null, null, null);
 
-            int estaMarcado = cursor.getInt(cursor.getColumnIndex(TabelaListaDeComprasProduto.COLUNA_MARCADO));
 
             ContentValues valores = new ContentValues();
 
@@ -94,21 +110,14 @@ public class ListaDeComprasProdutoDAO {
         return alterado;
     }
 
-    public boolean desmarcarProduto(Produto p, ListaDeCompras listaDeCompras){
+    public boolean desmarcarProduto(long idProduto, long idListaDeCompras){
         boolean alterado = false;
 
         try {
             String selection =
-                    TabelaListaDeComprasProduto.COLUNA_ID_LISTA + " = " + listaDeCompras.getId()
-                            + " AND " + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " = " + p.getId();
+                    TabelaListaDeComprasProduto.COLUNA_ID_LISTA + " = " + idListaDeCompras
+                            + " AND " + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " = " + idProduto;
 
-
-            String[] campos = {ListaDeComprasContract.TabelaListaDeComprasProduto.COLUNA_MARCADO};
-
-            Cursor cursor = mdb.query(ListaDeComprasContract.TabelaListaDeComprasProduto.NOME_TABELA, campos
-                    , selection, null, null, null, null);
-
-            int estaMarcado = cursor.getInt(cursor.getColumnIndex(TabelaListaDeComprasProduto.COLUNA_MARCADO));
 
             ContentValues valores = new ContentValues();
 
@@ -198,4 +207,22 @@ public class ListaDeComprasProdutoDAO {
         }
         return lista;
     }
+
+    public boolean excluirProdutoDeTodasListasDeCompras(long idProduto) {
+
+        boolean excluido = false;
+        try {
+            this.mdb = dbHelper.getWritableDatabase();
+
+
+            excluido = mdb.delete(TabelaListaDeComprasProduto.NOME_TABELA, TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " = " + idProduto, null) > 0;
+            mdb.close();
+            Toast.makeText(context, R.string.dao_produto_excluir, Toast.LENGTH_SHORT).show();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Toast.makeText(context, R.string.dao_produto_excluir_erro, Toast.LENGTH_SHORT).show();
+        }
+        return excluido;
+    }
+
 }
