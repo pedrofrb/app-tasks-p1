@@ -72,7 +72,7 @@ public class ListaProdutosAdapter extends RecyclerView.Adapter<ListaProdutosAdap
         @Override
         public boolean onLongClick(View v) {
             Intent it = new Intent(mContext, ProdutoAtualizar.class);
-            it.putExtra("id_produto", itemView.getTag().toString());
+            it.putExtra("id_lista", itemView.getTag().toString());
             mContext.startActivity(it);
             return false;
         }

@@ -1,6 +1,7 @@
 package com.example.pedro.floatingbutton;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,10 +70,9 @@ public class ProdutosInnerListaDeComprasAdapter extends RecyclerView.Adapter<Pro
 
         @Override
         public boolean onLongClick(View v) {
-            //TODO Logica de tirar produto da lista
-            //  Intent it = new Intent(mContext, ProdutoAtualizar.class);
-            // it.putExtra("id_produto", itemView.getTag().toString());
-            //mContext.startActivity(it);
+            Intent it = new Intent(mContext, ProdutoAtualizar.class);
+            it.putExtra("id_lista", itemView.getTag().toString());
+            mContext.startActivity(it);
             return false;
         }
     }

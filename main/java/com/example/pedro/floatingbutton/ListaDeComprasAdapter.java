@@ -2,7 +2,9 @@ package com.example.pedro.floatingbutton;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ public class ListaDeComprasAdapter extends RecyclerView.Adapter<ListaDeComprasAd
 
     private List<ListaDeCompras> listas;
     private Context mContext;
+
 
     public ListaDeComprasAdapter(Context context, List<ListaDeCompras> listas) {
         this.listas = listas;
@@ -46,7 +49,15 @@ public class ListaDeComprasAdapter extends RecyclerView.Adapter<ListaDeComprasAd
 
         CardView cd = (CardView)holder.itemView.findViewById(R.id.lista_cardview);
         ListaDeCompras l = listas.get(position);
-        cd.setBackgroundColor(Color.parseColor("#"+l.getCor()));
+        if(l.getCor().equals("default")){
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+            String cor= sharedPreferences.getString("COR_PADRAO","FFF59D");
+            cd.setBackgroundColor(Color.parseColor("#"+cor));
+        }else{
+            cd.setBackgroundColor(Color.parseColor("#"+l.getCor()));
+        }
+
         holder.nome.setText(l.getNome());
         holder.itemView.setTag(l.getId());
     }
@@ -75,11 +86,15 @@ public class ListaDeComprasAdapter extends RecyclerView.Adapter<ListaDeComprasAd
         @Override
         public boolean onLongClick(View v) {
             //TODO Logica de modificar lista
-            //  Intent it = new Intent(mContext, ProdutoAtualizar.class);
-           // it.putExtra("id_produto", itemView.getTag().toString());
-            //mContext.startActivity(it);
+            Intent it = new Intent(mContext, ListaModificacao.class);
+            it.putExtra("id_lista", itemView.getTag().toString());
+            mContext.startActivity(it);
             return false;
         }
+        public void OnClick(View v){
+
+        }
     }
+
 
 }

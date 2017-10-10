@@ -12,6 +12,7 @@ import com.example.pedro.floatingbutton.R;
 import com.example.pedro.floatingbutton.db.ListaDeComprasContract.TabelaProduto;
 
 
+import com.example.pedro.floatingbutton.db.model.ListaDeCompras;
 import com.example.pedro.floatingbutton.db.model.Produto;
 
 import java.util.ArrayList;
@@ -108,6 +109,29 @@ public class ProdutoDAO {
             mdb = dbHelper.getReadableDatabase();
 
             cursor = mdb.query(TabelaProduto.NOME_TABELA, campos, TabelaProduto._ID + "=" + id, null, null, null, TabelaProduto.COLUNA_NOME_PRODUTO);
+
+
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                produto = new Produto(cursor);
+            }
+            mdb.close();
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        }
+        return produto;
+    }
+
+    public  Produto getTodosProdutos(String nome) {
+        Produto produto = null;
+        try {
+            Cursor cursor;
+
+            String[] campos = {TabelaProduto._ID, TabelaProduto.COLUNA_NOME_PRODUTO};
+
+            mdb = dbHelper.getReadableDatabase();
+
+            cursor = mdb.query(TabelaProduto.NOME_TABELA, campos, TabelaProduto.COLUNA_NOME_PRODUTO + "= \"" + nome+"\"", null, null, null, TabelaProduto.COLUNA_NOME_PRODUTO);
 
 
             if (cursor.getCount() > 0) {

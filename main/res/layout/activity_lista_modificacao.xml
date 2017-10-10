@@ -55,6 +55,7 @@
         <Button
             android:id="@+id/add_produto_lista"
             style="@style/Widget.AppCompat.Button.Colored"
+            android:onClick="OnClickAddProduto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -81,7 +82,6 @@
         android:layout_marginTop="16dp"
         android:paddingBottom="16dp"
         android:background="@drawable/layout_border"
-        android:backgroundTint="@color/colorPrimaryLight"
         android:elevation="3dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -89,13 +89,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editTextNomeLista"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:hint="@string/lista_add_hint"
             app:layout_constraintBottom_toTopOf="@+id/imageButton"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/imageButton"
@@ -107,6 +106,7 @@
         <ImageButton
             android:id="@+id/imageButton"
             style="@style/Widget.AppCompat.ImageButton"
+            android:onClick="OnClickChangeColor"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="8dp"
@@ -127,7 +127,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNomeLista"
             android:layout_marginTop="8dp" />
 
     </android.support.constraint.ConstraintLayout>

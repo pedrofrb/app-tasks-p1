@@ -24,5 +24,11 @@
     <string name="text_view_label_produto_add">Produto:</string>
     <string name="nome_produto_add_hint">Digite o nome do produto</string>
     <string name="lista_add_hint">Digite o nome da Lista</string>
+    <string name="lista_atualizar_erro">Problemas ao recuperar lista</string>
+    <string name="listaDecompras_marcar_error">Erro ao marcar Produto</string>
+    <string name="lista_produto_is_marcado_error">Erro ao ler marcação</string>
+    <string name="lista_produto_marcar_success">Marcação modificada</string>
+    <string name="lista_produto_desmarcar_success">Erro ao desmarcar produto</string>
+    <string name="lista_produto_desmarcar_error">Erro ao desmarcar produto</string>
 
 </resources>

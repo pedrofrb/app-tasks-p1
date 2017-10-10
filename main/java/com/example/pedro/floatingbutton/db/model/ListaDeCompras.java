@@ -18,9 +18,12 @@ public class ListaDeCompras {
     private String cor;
     private Timestamp timestamp;
 
+    public ListaDeCompras(String nome) {
+        this.nome = nome;
+    }
 
     public ListaDeCompras(Cursor cursor)throws IllegalArgumentException {
-        this.id=cursor.getLong(cursor.getColumnIndex(TabelaListaDeComprasProduto._ID));
+        this.id=cursor.getLong(cursor.getColumnIndex(TabelaListaDeCompras._ID));
         this.nome=cursor.getString(cursor.getColumnIndex(TabelaListaDeCompras.COLUNA_NOME_LISTA));
         this.cor=cursor.getString(cursor.getColumnIndex(TabelaListaDeCompras.COLUNA_COR_LISTA));
         this.timestamp=Timestamp.valueOf(cursor.getString(cursor.getColumnIndex(TabelaListaDeCompras.COLUNA_TIMESTAMP)));

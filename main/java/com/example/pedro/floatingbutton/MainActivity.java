@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     ActionBarDrawerToggle toggle;
     FragmentManager fragmentManager;
+    boolean isInProdutos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +31,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        ListasMainContent listasMainContent = new ListasMainContent();
 
-        fragmentTransaction.replace(R.id.frame_activity_main,listasMainContent);
+            fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        fragmentTransaction.commit();
+            ListasMainContent listasMainContent = new ListasMainContent();
+
+            fragmentTransaction.replace(R.id.frame_activity_main,listasMainContent);
+            setTitle(R.string.item_menu_drawer_lista);
+            fragmentTransaction.commit();
 
 
 
@@ -122,10 +126,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int itemSelecionado = item.getItemId();
 
         if (itemSelecionado == R.id.item_menu_drawer_lista) {
-
+            isInProdutos=false;
             FragmentTransaction transaction= fragmentManager.beginTransaction();
             ListasMainContent ltmc = new ListasMainContent();
             transaction.replace(R.id.frame_activity_main,ltmc);
+            setTitle(R.string.item_menu_drawer_lista);
             transaction.commit();
             drawer.closeDrawer(GravityCompat.START);
 
@@ -134,14 +139,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         } else if (itemSelecionado == R.id.item_menu_drawer_produto) {
+            isInProdutos=true;
             FragmentTransaction transaction= fragmentManager.beginTransaction();
             ProdutosMainContent pdmc = new ProdutosMainContent();
             transaction.replace(R.id.frame_activity_main,pdmc);
+            setTitle(R.string.item_menu_drawer_produto);
             transaction.commit();
             drawer.closeDrawer(GravityCompat.START);
 
             return true;
         }
         return false;
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("verificadorFragment",isInProdutos);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        isInProdutos =savedInstanceState.getBoolean("verificadorFragment");
+
+        if(isInProdutos){
+            FragmentTransaction transaction= fragmentManager.beginTransaction();
+            ProdutosMainContent pdmc = new ProdutosMainContent();
+            transaction.replace(R.id.frame_activity_main,pdmc);
+            setTitle(R.string.item_menu_drawer_produto);
+            transaction.commit();
+        }
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }

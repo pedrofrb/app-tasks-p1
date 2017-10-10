@@ -47,17 +47,12 @@ public class ListasMainContent extends Fragment {
                 long id =(long) viewHolder.itemView.getTag();
                 listaDeComprasDAO.excluirListaDeCompras(id);
                 mAdapter.atualizaAdapter(listaDeComprasDAO.getTodasListaDeCompras());
-                // TODO Lógica de apagar Lista
-                //dao.excluirProduto(id);
-                //mAdapter.atualizaAdapter(dao.getTodosProdutos());
             }
         }).attachToRecyclerView(recyclerView);
 
         //Será substituido pelo DAO
 
         listaDeComprasDAO = new ListaDeComprasDAO(rootView.getContext());
-        listaDeComprasDAO.inserirListaDeCompras("Lista listosa","FFEB3B");
-        listaDeComprasDAO.inserirListaDeCompras("Lista listosa verde","C5E1A5");
 
 
 
@@ -92,7 +87,11 @@ public class ListasMainContent extends Fragment {
 
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter.atualizaAdapter(listaDeComprasDAO.getTodasListaDeCompras());
+    }
 
 
 }

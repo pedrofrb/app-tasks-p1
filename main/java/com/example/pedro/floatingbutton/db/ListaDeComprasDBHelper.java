@@ -14,7 +14,7 @@ import com.example.pedro.floatingbutton.db.ListaDeComprasContract.*;
 public class ListaDeComprasDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME="listaDecompras.db";
-    private static final int DATABASE_VERSION=2;
+    private static final int DATABASE_VERSION=3;
 
     public ListaDeComprasDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,7 +44,7 @@ public class ListaDeComprasDBHelper extends SQLiteOpenHelper {
                 + TabelaListaDeComprasProduto._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + TabelaListaDeComprasProduto.COLUNA_ID_LISTA + " INTEGER NOT NULL,"
                 + TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO + " INTEGER NOT NULL,"
-                +TabelaListaDeCompras.COLUNA_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+                +TabelaListaDeComprasProduto.COLUNA_MARCADO + " INTEGER DEFAULT 0,"
                 +"FOREIGN KEY("+TabelaListaDeComprasProduto.COLUNA_ID_LISTA+") REFERENCES "+TabelaListaDeCompras.NOME_TABELA+"("+TabelaListaDeCompras._ID+"),"
                 +"FOREIGN KEY("+TabelaListaDeComprasProduto.COLUNA_ID_PRODUTO+") REFERENCES "+TabelaProduto.NOME_TABELA+"("+TabelaProduto._ID+")"
                 + ");";
@@ -56,6 +56,8 @@ public class ListaDeComprasDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TabelaProduto.NOME_TABELA);
+        db.execSQL("DROP TABLE IF EXISTS "+TabelaListaDeComprasProduto.NOME_TABELA);
+        db.execSQL("DROP TABLE IF EXISTS "+TabelaListaDeCompras.NOME_TABELA);
         onCreate(db);
     }
 

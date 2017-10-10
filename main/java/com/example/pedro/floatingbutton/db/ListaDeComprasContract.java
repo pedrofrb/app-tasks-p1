@@ -26,7 +26,7 @@ public class ListaDeComprasContract {
         public static final String NOME_TABELA = "listaDeComprasProduto";
         public static final String COLUNA_ID_LISTA = "idLista";
         public static final String COLUNA_ID_PRODUTO = "idProduto";
-        public static final String COLUNA_MARCADO = "timestamp";
+        public static final String COLUNA_MARCADO = "isMarcado";
     }
 
 }
