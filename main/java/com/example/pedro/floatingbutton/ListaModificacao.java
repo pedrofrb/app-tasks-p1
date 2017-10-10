@@ -185,4 +185,10 @@ public class ListaModificacao extends AppCompatActivity {
         daoLista.atualizarListaDeCompras(lista);
         super.onBackPressed();
     }
+
+    @Override
+    protected void onResume() {
+        mAdapter.atualizaAdapter(daoListaDeProdutos.getTodosProdutosFromLista(lista.getId()));
+        super.onResume();
+    }
 }
